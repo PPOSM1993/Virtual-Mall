@@ -1,3 +1,24 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Company
+
+
+@admin.register(Company)
+class CompanyAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+        'category',
+        'is_featured',
+        'is_active'
+    )
+
+    prepopulated_fields = {
+        'slug': ('name',)
+    }
+
+    search_fields = ('name',)
+    list_filter = (
+        'category',
+        'is_featured',
+        'is_active'
+    )
